@@ -15,7 +15,7 @@ export default function Command() {
               key={db.database_id}
               icon="redis.png"
               title={db.database_name}
-              subtitle={db.region}
+              subtitle={`→ ${db.endpoint}`}
               onAction={() => open(`https://console.upstash.com/redis/${db.database_id}`)}
             />
           ))}
@@ -26,22 +26,28 @@ export default function Command() {
               key={db.database_id}
               icon="redis-gray.png"
               title={db.database_name}
-              subtitle={db.region}
+              subtitle={`→ ${db.endpoint}`}
               // onAction={() => open(`https://console.upstash.com/redis/${db.database_id}`)}
             />
           ))}
       </MenuBarExtra.Section>
 
       <MenuBarExtra.Section title="Vector">
-        {vector.map((vector: Vector) => (
-          <MenuBarExtra.Item
-            key={vector.id}
-            icon="vector.png"
-            subtitle={vector.region}
-            title={vector.name}
-            onAction={() => open(`https://console.upstash.com/vector/${vector.id}`)}
-          />
-        ))}
+        {redis.length === 0 ? (
+          <MenuBarExtra.Item icon="vector-gray.png" title="No Vector Databases" />
+        ) : (
+          <>
+            {vector.map((vector: Vector) => (
+              <MenuBarExtra.Item
+                key={vector.id}
+                icon="vector.png"
+                title={vector.name}
+                subtitle={`→ ${vector.endpoint}`}
+                onAction={() => open(`https://console.upstash.com/vector/${vector.id}`)}
+              />
+            ))}
+          </>
+        )}
       </MenuBarExtra.Section>
 
       {/*<MenuBarExtra.Section title="QStash">
@@ -52,17 +58,13 @@ export default function Command() {
         />
       </MenuBarExtra.Section>*/}
 
-      <MenuBarExtra.Section title="Support">
+      <MenuBarExtra.Section title="Upstash">
         <MenuBarExtra.Item
           icon="brand-discord.png"
           title="Join Our Community"
           onAction={() => open(`https://discord.gg/VXyFZpQvPq`)}
         />
-        <MenuBarExtra.Item
-          icon="brand-x.png"
-          title="Follow Us"
-          onAction={() => open(`https://x.com/upstash`)}
-        />
+        <MenuBarExtra.Item icon="brand-x.png" title="Follow Us" onAction={() => open(`https://x.com/upstash`)} />
       </MenuBarExtra.Section>
     </MenuBarExtra>
   );
