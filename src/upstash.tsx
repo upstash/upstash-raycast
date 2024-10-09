@@ -61,7 +61,7 @@ export default function Command() {
         <MenuBarExtra.Item
           icon="brand-x.png"
           title="Follow Us"
-          onAction={() => open(`https://console.upstash.com/qstash`)}
+          onAction={() => open(`https://x.com/upstash`)}
         />
       </MenuBarExtra.Section>
     </MenuBarExtra>
